@@ -7,6 +7,8 @@ Uses python 3
 Drawer compatible with MacOS, untested on other systems.
 
 usage:
+./run
+or 
 python main.py smin smax r seed duration drawingEnabled
 
 where:

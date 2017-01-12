@@ -1,0 +1,2 @@
+#!/bin/bash
+python main.py 0 10 3 131412 100 true 

@@ -1,4 +1,4 @@
-import Sys
+import sys
 
 from Drawer import Drawer
 from Environment import Environment
@@ -9,21 +9,21 @@ def main():
 	# Get command line arguments
 	args = sys.argv
 
-	if len(argv) < 7:
+	if len(args) < 7:
 		print("Usage:")
 		print("python main.py smin smax r seed duration")
 		print("Optional:")
 		print("python main.py smin smax r seed duration drawingEnabled")
 		exit()
 
-	smin = argv[2]
-	smax = argv[3]
-	r = argv[4]
-	seed = argv[5]
-	duration = argv[6]
+	smin = args[2]
+	smax = args[3]
+	r = args[4]
+	seed = args[5]
+	duration = args[6]
 	drawingEnabled = False
 
-	if len(argv) > 7 and argv[7] == "true":
+	if len(args) > 7 and args[7] == "true":
 		drawingEnabled = True
 
 
