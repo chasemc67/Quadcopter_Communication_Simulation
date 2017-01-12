@@ -1,0 +1,11 @@
+object oriented. make a class for each node.
+Each node needs it's location, and a move function
+
+Keep a priority queue sorted by next event. 
+Each event should be a class, 
+Holds time until event, and reference objects in event
+After event, invalidate all events relating to the two objects
+Find all new events for 2 objects, and add to queue
+
+Make a statistics object (or just keep as counters in environment)
+Keep track of average "talking" time. 
