@@ -1,3 +1,5 @@
+# A node in the simulation
+
 class Node():
 	def __init__(self):
 		self.x = 4

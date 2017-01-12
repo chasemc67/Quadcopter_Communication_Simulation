@@ -1,3 +1,5 @@
+# An object containing a reference to the environment
+
 class Environment():
 	def __init__(self):
 		#self.eventList = priorityQueue()

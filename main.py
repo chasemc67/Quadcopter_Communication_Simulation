@@ -1,3 +1,8 @@
+# A Simulate two moving nodes, who can communicate when 
+# within some distance.
+
+# Written by Chase McCarty, January 2017
+
 import sys
 
 from Drawer import Drawer
@@ -6,9 +11,7 @@ from Node import Node
 from Event import Event
 
 def main():
-	# Get command line arguments
 	args = sys.argv
-
 	if len(args) < 7:
 		print("Usage:")
 		print("python main.py smin smax r seed duration")

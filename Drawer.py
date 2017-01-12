@@ -1,3 +1,6 @@
+# Module for drawing the simulation out in the terminal using ascii art
+# Works on MacOS, untested on other systems.
+
 import os
 import sys
 import time
@@ -10,7 +13,6 @@ class Drawer():
 		self.width = x
 		self.height = y
 
-
 	def clear(self):
 		print("Clearing")
 		os.system('cls' if os.name == 'nt' else 'clear')
@@ -21,7 +23,6 @@ class Drawer():
 				return True
 		return False
 
-	#def draw(self, nodeList):
 	def draw(self, nodeList):
 		self.clear()
 		for y in range(self.height):			
