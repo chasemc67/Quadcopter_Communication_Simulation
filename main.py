@@ -57,6 +57,8 @@ class Node():
 	def __init__(self):
 		self.x = 4
 		self.y = 5
+		self.dx = 1
+		self.dy = 1
 		#self.x = rand()
 		#self.y = rand()
 		#self.dx = rand()  # X movement speed
@@ -69,9 +71,13 @@ class Node():
 
 
 class Environment():
-	def __init__():
-		self.eventList = priorityQueue()
+	def __init__(self):
+		#self.eventList = priorityQueue()
 		self.nodeList = list() # list of nodes in environment
+
+	def moveNodes(self):
+		for node in self.nodeList:
+			node.move(1)
 
 
 class Event():
@@ -81,14 +87,18 @@ class Event():
 		self.right = node2
 
 
-
+env = Environment()
 output = Drawer(10, 10)
 
-nodeList = list();
-nodeList.append(Node())
-nodeList.append(Node())
+env.nodeList = list();
+env.nodeList.append(Node())
+env.nodeList.append(Node())
 
-nodeList[1].x = 7
-nodeList[1].y = 7
+env.nodeList[1].x = 7
+env.nodeList[1].y = 7
+env.nodeList[1].dx = -1
+env.nodeList[1].dy = -1
 
-output.draw(nodeList)
+for i in range(10):
+	output.draw(nodeList)
+	env.moveNodes()
