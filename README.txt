@@ -7,4 +7,20 @@ Uses python 3
 Drawer compatible with MacOS, untested on other systems.
 
 usage:
-python main.py
+python main.py smin smax r seed duration drawingEnabled
+
+where:
+smin and smax represent the minimum and maximum values for the position of the node,
+
+r represents the communication radius of the node
+
+seed is a seed for the random number generator
+
+duration is the simulation duration in seconds
+
+drawingEnabled is a toggle for whether an ascii art simulation is drawn to the terminal
+
+
+usage example with numbers:
+
+python main.py 0 10 3 104141 100 true
