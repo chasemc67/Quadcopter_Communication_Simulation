@@ -65,9 +65,9 @@ class Node():
 		#self.dy = rand()  # Y movement speed
 		#self.commDistance = communicationDistance # r
 
-	def move(timeSteps):
-		self.x = x + (timeSteps * dx)
-		self.y = y + (timeSteps * dy)
+	def move(self, timeSteps):
+		self.x = self.x + (timeSteps * self.dx)
+		self.y = self.y + (timeSteps * self.dy)
 
 
 class Environment():
@@ -100,5 +100,6 @@ env.nodeList[1].dx = -1
 env.nodeList[1].dy = -1
 
 for i in range(10):
-	output.draw(nodeList)
+	output.draw(env.nodeList)
 	env.moveNodes()
+	time.sleep(1)
