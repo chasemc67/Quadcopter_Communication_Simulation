@@ -19,3 +19,8 @@ class Node():
 	def hitWall(self):
 		return
 		# randomize angle and speed or whateve
+
+	def getLineSegmemnt(self):
+		startPoint = (self.x, self.y)
+		endPoint = (self.x + (40*self.dx), self.y + (40*self.dy))
+		return (startPoint, endPoint)
