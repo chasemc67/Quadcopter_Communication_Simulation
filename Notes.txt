@@ -21,7 +21,8 @@ Check for interesting "thick" lines but splitting each "thick" line into 2 parra
 toDo:
 [+] Switch event list to priority queue
 [+] Sort queue by Event attribute, not tuple
-[ ] Make nodes "bounce" off walls
+[+] Make nodes "bounce" off walls
+[ ] Switch node colisions to be the min of both node intersect times
 [ ] Handle simultaneous events
 [ ] Change line intersections to "fat intersections"
 [ ] Make nodes change color when within range of eachother

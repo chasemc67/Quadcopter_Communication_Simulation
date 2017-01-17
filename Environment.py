@@ -21,7 +21,7 @@ class Environment():
 		intersectionPoint = self.lineIntersection(Node1.getLineSegmemnt(), Node2.getLineSegmemnt())
 		
 		if self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint) < math.inf and self.getTimeUntilNodeReachesPoint(Node2, intersectionPoint) < math.inf:
-			return self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint)
+			return abs(self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint))
 		else:
 			return math.inf
 
