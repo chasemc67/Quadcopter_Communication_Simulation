@@ -1,10 +1,11 @@
 # An object containing a reference to the environment
 
 import math
+import queue
 
 class Environment():
 	def __init__(self, size):
-		#self.eventList = priorityQueue()
+		self.eventList = PriorityQueue(maxsize=0)
 		self.nodeList = list() # list of nodes in environment
 		self.size = size
 		self.clock = 0
