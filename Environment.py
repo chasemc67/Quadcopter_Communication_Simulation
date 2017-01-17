@@ -3,12 +3,37 @@
 import math
 import queue as q
 
+import random
+
+from Node import Node
+
 class Environment():
-	def __init__(self, size):
+	def __init__(self, size, numNodes, smin, smax):
 		self.eventList = q.PriorityQueue(maxsize=0)
 		self.nodeList = list() # list of nodes in environment
 		self.size = size
 		self.clock = 0
+
+		self.smin = smin
+		self.smax = smax
+
+		for i in range(numNodes):
+			self.nodeList.append(Node(self.smin, self.smax))
+			self.nodeList[i].x = random.randint(1, size-1)
+			self.nodeList[i].y = random.randint(1, size-1)
+			self.nodeList[i].dx = random.randint(smin, smax)
+			self.nodeList[i].dy = random.randint(smin, smax)
+
+			directionX = random.randint(0,1)
+			if directionX == 0:
+				directionX = -1
+			directionY = random.randint(0,1)
+			if directionY == 0:
+				directionY = -1
+
+			self.nodeList[i].dx = self.nodeList[i].dx * directionX
+			self.nodeList[i].dy = self.nodeList[i].dy * directionY
+
 
 	def moveNodes(self, timeSteps):
 		self.clock += timeSteps
@@ -40,10 +65,10 @@ class Environment():
 	def getTimeTillWallIsHit(self, Node):
 		# Take the min of intersecting with each wall
 		wallList = list()
-		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, 0), (0, self.size))))))
-		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, 0), (self.size, 0))))))
-		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((self.size, 0), (self.size, self.size))))))
-		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, self.size), (self.size, self.size))))))
+		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, 0), (0, self.size-1))))))
+		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, 0), (self.size-1, 0))))))
+		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((self.size-1, 0), (self.size-1, self.size-1))))))
+		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, self.size-1), (self.size-1, self.size-1))))))
 		return min(wallList)
 
 	# Returns the intersction point, still need to check

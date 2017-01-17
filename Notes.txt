@@ -22,8 +22,7 @@ toDo:
 [+] Switch event list to priority queue
 [+] Sort queue by Event attribute, not tuple
 [+] Make nodes "bounce" off walls
+[ ] Skip to events
+[ ] Handle multiple events
 [ ] Change line intersections to "fat intersections"
-[ ] Switch node colisions to be the min of both node intersect times
-[ ] Handle simultaneous events
 [ ] Make nodes change color when within range of eachother
-[ ] Switch eventList appender to interate over node list 

@@ -10,6 +10,9 @@ from Environment import Environment
 from Node import Node
 from Event import Event
 import math
+import random
+
+import queue as q
 
 #debug
 import time
@@ -23,51 +26,36 @@ def getLineSegmemnt(Node):
 
 def main():
 	args = sys.argv
-	if len(args) < 7:
+	if len(args) < 6:
 		print("Usage:")
 		print("python main.py smin smax r seed duration")
 		print("Optional:")
 		print("python main.py smin smax r seed duration drawingEnabled")
 		exit()
 
-	smin = args[2]
-	smax = args[3]
-	r = args[4]
-	seed = args[5]
-	duration = args[6]
+	smin = int(args[1])
+	smax = int(args[2])
+	r = int(args[3])
+	seed = int(args[4])
+	duration = int(args[5])
 	drawingEnabled = False
 
-	if len(args) > 7 and args[7] == "true":
+	if len(args) > 6 and args[6] == "true":
 		drawingEnabled = True
 
+	random.seed(seed)
 
-	env = Environment(40)
+	env = Environment(40, 2, smin, smax)
 	output = Drawer(40, 40)
-
-	Node1 = Node()
-	Node1.x = 10
-	Node1.y = 38
-	Node1.dx = 1
-	Node1.dy = -1
-
-	Node2 = Node()
-	Node2.x = 19
-	Node2.y = 38
-	Node2.dx = -1
-	Node2.dy = -1
-
-
-	env.nodeList = list();
-	env.nodeList.append(Node1)
-	env.nodeList.append(Node2)
 
 	for i in range(100):
 		output.draw(env.nodeList)
 		env.moveNodes(1)
 
-		env.eventList.put(Event(env.getTimeTillCollisionEvent(Node1, Node2), Node1, Node2, "node intersect"))
-		env.eventList.put(Event(env.getTimeTillWallIsHit(Node1), Node1, None, "wall"))
-		env.eventList.put(Event(env.getTimeTillWallIsHit(Node2), Node2, None, "wall"))
+		env.eventList = q.PriorityQueue(maxsize=0)
+		env.eventList.put(Event(env.getTimeTillCollisionEvent(env.nodeList[0], env.nodeList[1]), env.nodeList[0], env.nodeList[1], "node intersect"))
+		env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[0]), env.nodeList[0], None, "wall"))
+		env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[1]), env.nodeList[1], None, "wall"))
 
 		nextEvent = env.eventList.get()
 		if nextEvent.eventTime == 0 and nextEvent.type == "wall": 
