@@ -41,7 +41,7 @@ def main():
 		drawingEnabled = True
 
 
-	env = Environment()
+	env = Environment(40)
 	output = Drawer(40, 40)
 
 	Node1 = Node()
@@ -61,19 +61,27 @@ def main():
 	env.nodeList.append(Node1)
 	env.nodeList.append(Node2)
 
-	for i in range(20):
+	for i in range(50):
 		output.draw(env.nodeList)
-		env.moveNodes()
+		env.moveNodes(1)
 
-		timeToIntersect = env.getTimeTillCollisionEvent(Node1, Node2)
-		print("Time to intersect: " + str(timeToIntersect))
-		if timeToIntersect < math.inf:
-			print("Lines will interesect in: " + str(timeToIntersect))
-			time.sleep(0.5)
+		eventList = list()
+		timeToNodeIntersect = env.getTimeTillCollisionEvent(Node1, Node2)
+		timeToNode1Wall = env.getTimeTillWallIsHit(Node1)
+		timeToNode2Wall = env.getTimeTillWallIsHit(Node2)
 
-		else:
-			print("lines wont intersect")
-			time.sleep(0.5)
+		print("timeToNodeIntersect: " + str(timeToNodeIntersect))
+		print("timeToNode1Wall: " + str(timeToNode1Wall))
+		print("timeToNode2Wall: " + str(timeToNode2Wall))
+
+		eventList.append(env.clock+timeToNodeIntersect)
+		eventList.append(env.clock+timeToNode1Wall)
+		eventList.append(env.clock+timeToNode2Wall)
+
+		print("Next Event in: " + str(min(eventList) - env.clock))
+		time.sleep(0.5)
+
+		
 
 
 

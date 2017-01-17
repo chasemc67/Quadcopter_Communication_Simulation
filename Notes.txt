@@ -14,3 +14,14 @@ Keep track of average "talking" time.
 
 
 Check for interesting "thick" lines but splitting each "thick" line into 2 parrallel lines, and check for intersection between the two pairs of lines
+
+
+
+
+toDo:
+[ ] Fix off-by-one error in hitting walls
+[ ] Make nodes "bounce" off walls
+[ ] Change line intersections to "fat intersections"
+[ ] Make nodes change color when within range of eachother
+[ ] Switch event list to priority queue
+[ ] Switch eventList appender to interate over node list 

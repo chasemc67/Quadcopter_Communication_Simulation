@@ -3,28 +3,43 @@
 import math
 
 class Environment():
-	def __init__(self):
+	def __init__(self, size):
 		#self.eventList = priorityQueue()
 		self.nodeList = list() # list of nodes in environment
+		self.size = size
+		self.clock = 0
 
-	def moveNodes(self):
+	def moveNodes(self, timeSteps):
+		self.clock += timeSteps
 		for node in self.nodeList:
-			node.move(1)
+			node.move(timeSteps)
 
 	# returns number of time steps until a collision will happen
 	# If both nodes stay on their current coarse
 	def getTimeTillCollisionEvent(self, Node1, Node2):
-		try:
-			intersectionPoint = self.lineIntersection(Node1.getLineSegmemnt(), Node2.getLineSegmemnt())
-		except:
-			print("Intersection failed")
+		intersectionPoint = self.lineIntersection(Node1.getLineSegmemnt(), Node2.getLineSegmemnt())
+		
+		return self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint)
+
+	def getTimeUntilNodeReachesPoint(self, Node, Point):
+		if Point[0] == math.inf:
 			return math.inf
-		if intersectionPoint[0] > Node1.x and Node1.dx < 0:
+
+		if Point[0] > Node.x and Node.dx < 0:
 			return math.inf
-		elif intersectionPoint[0] < Node1.x and Node1.dx > 0:
+		elif Point[0] < Node.x and Node.dx > 0:
 			return math.inf
 		else:	
-			return abs(intersectionPoint[0] - Node1.x) / Node1.dx
+			return abs(Point[0] - Node.x) / Node.dx		
+	
+	def getTimeTillWallIsHit(self, Node):
+		# Take the min of intersecting with each wall
+		wallList = list()
+		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, 0), (0, self.size))))))
+		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, 0), (self.size, 0))))))
+		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((self.size, 0), (self.size, self.size))))))
+		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, self.size), (self.size, self.size))))))
+		return min(wallList)
 
 	# Returns the intersction point, still need to check
 	# If that intersection will happen in future
@@ -37,7 +52,7 @@ class Environment():
 
 	    div = det(xdiff, ydiff)
 	    if div == 0:
-	       raise Exception('lines do not intersect')
+	       return (math.inf, math.inf)
 
 	    d = (det(*line1), det(*line2))
 	    x = det(d, xdiff) / div
