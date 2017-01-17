@@ -1,11 +1,11 @@
 # An object containing a reference to the environment
 
 import math
-import queue
+import queue as q
 
 class Environment():
 	def __init__(self, size):
-		self.eventList = PriorityQueue(maxsize=0)
+		self.eventList = q.PriorityQueue(maxsize=0)
 		self.nodeList = list() # list of nodes in environment
 		self.size = size
 		self.clock = 0
@@ -20,13 +20,17 @@ class Environment():
 	def getTimeTillCollisionEvent(self, Node1, Node2):
 		intersectionPoint = self.lineIntersection(Node1.getLineSegmemnt(), Node2.getLineSegmemnt())
 		
-		return self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint)
+		if self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint) < math.inf and self.getTimeUntilNodeReachesPoint(Node2, intersectionPoint) < math.inf:
+			return self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint)
+		else:
+			return math.inf
+
 
 	def getTimeUntilNodeReachesPoint(self, Node, Point):
 		if Point[0] == math.inf:
 			return math.inf
 
-		if Point[0] > Node.x and Node.dx < 0:
+		if Point[0] > Node.x and Node.dx < 0 and Point[0]:
 			return math.inf
 		elif Point[0] < Node.x and Node.dx > 0:
 			return math.inf

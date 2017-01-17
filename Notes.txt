@@ -19,9 +19,10 @@ Check for interesting "thick" lines but splitting each "thick" line into 2 parra
 
 
 toDo:
-[ ] Switch event list to priority queue
-[ ] Fix off-by-one error in hitting walls
+[+] Switch event list to priority queue
+[+] Sort queue by Event attribute, not tuple
 [ ] Make nodes "bounce" off walls
+[ ] Handle simultaneous events
 [ ] Change line intersections to "fat intersections"
 [ ] Make nodes change color when within range of eachother
 [ ] Switch eventList appender to interate over node list 

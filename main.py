@@ -61,24 +61,18 @@ def main():
 	env.nodeList.append(Node1)
 	env.nodeList.append(Node2)
 
-	for i in range(50):
+	for i in range(100):
 		output.draw(env.nodeList)
 		env.moveNodes(1)
 
-		eventList = list()
-		timeToNodeIntersect = env.getTimeTillCollisionEvent(Node1, Node2)
-		timeToNode1Wall = env.getTimeTillWallIsHit(Node1)
-		timeToNode2Wall = env.getTimeTillWallIsHit(Node2)
+		env.eventList.put(Event(env.getTimeTillCollisionEvent(Node1, Node2), Node1, Node2, "node intersect"))
+		env.eventList.put(Event(env.getTimeTillWallIsHit(Node1), Node1, None, "wall"))
+		env.eventList.put(Event(env.getTimeTillWallIsHit(Node2), Node2, None, "wall"))
 
-		print("timeToNodeIntersect: " + str(timeToNodeIntersect))
-		print("timeToNode1Wall: " + str(timeToNode1Wall))
-		print("timeToNode2Wall: " + str(timeToNode2Wall))
-
-		eventList.append(env.clock+timeToNodeIntersect)
-		eventList.append(env.clock+timeToNode1Wall)
-		eventList.append(env.clock+timeToNode2Wall)
-
-		print("Next Event in: " + str(min(eventList) - env.clock))
+		nextEvent = env.eventList.get()
+		if nextEvent.eventTime == 0 and nextEvent.type == "wall": 
+			nextEvent.node1.bounceOffWall()
+		print("Next Event: " + nextEvent.type + " in: " + str(nextEvent.eventTime))
 		time.sleep(0.5)
 
 		

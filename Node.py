@@ -24,3 +24,7 @@ class Node():
 		startPoint = (self.x, self.y)
 		endPoint = (self.x + (40*self.dx), self.y + (40*self.dy))
 		return (startPoint, endPoint)
+
+	def bounceOffWall(self):
+		self.dx = -self.dx
+		self.dy = -self.dy
