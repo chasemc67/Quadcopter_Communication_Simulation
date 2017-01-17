@@ -23,6 +23,6 @@ toDo:
 [+] Sort queue by Event attribute, not tuple
 [+] Make nodes "bounce" off walls
 [ ] Skip to events
-[ ] Handle multiple events
-[ ] Change line intersections to "fat intersections"
+[ ] Handle multiple events	
+[ ] Change line intersections to "fat intersections" (use 3 lines)
 [ ] Make nodes change color when within range of eachother

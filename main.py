@@ -48,19 +48,28 @@ def main():
 	env = Environment(40, 2, smin, smax)
 	output = Drawer(40, 40)
 
+	env.eventList = q.PriorityQueue(maxsize=0)
+	env.eventList.put(Event(env.getTimeTillCollisionEvent(env.nodeList[0], env.nodeList[1]), env.nodeList[0], env.nodeList[1], "node intersect"))
+	env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[0]), env.nodeList[0], None, "wall"))
+	env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[1]), env.nodeList[1], None, "wall"))
+
 	for i in range(100):
 		output.draw(env.nodeList)
+		nextEvent = env.eventList.get()
+		print("Next Event: " + nextEvent.type + " in: " + str(nextEvent.eventTime))
+		print("Node1: " + str(env.nodeList[0].x) + ", " + str(env.nodeList[0].y))
+		print("Node2: " + str(env.nodeList[1].x) + ", " + str(env.nodeList[1].y))
+		env.moveNodes(nextEvent.eventTime)
+		if nextEvent.type == "wall":
+			nextEvent.node1.bounceOffWall()
+
 		env.moveNodes(1)
 
 		env.eventList = q.PriorityQueue(maxsize=0)
 		env.eventList.put(Event(env.getTimeTillCollisionEvent(env.nodeList[0], env.nodeList[1]), env.nodeList[0], env.nodeList[1], "node intersect"))
 		env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[0]), env.nodeList[0], None, "wall"))
 		env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[1]), env.nodeList[1], None, "wall"))
-
-		nextEvent = env.eventList.get()
-		if nextEvent.eventTime == 0 and nextEvent.type == "wall": 
-			nextEvent.node1.bounceOffWall()
-		print("Next Event: " + nextEvent.type + " in: " + str(nextEvent.eventTime))
+		
 		time.sleep(0.5)
 
 		

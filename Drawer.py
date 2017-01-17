@@ -4,6 +4,7 @@
 import os
 import sys
 import time
+import math
 
 class Drawer():
 	# http://stackoverflow.com/questions/287871/print-in-terminal-with-colors-using-python
@@ -19,7 +20,7 @@ class Drawer():
 
 	def nodeAtPosition(self, nodeList, posX, posY):
 		for node in nodeList:
-			if node.x == posX and node.y == posY:
+			if math.ceil(node.x) == posX and math.ceil(node.y) == posY:
 				return True
 		return False
 
