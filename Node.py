@@ -12,11 +12,8 @@ class Node():
 
 		self.smin = smin
 		self.smax = smax
-		#self.x = rand()
-		#self.y = rand()
-		#self.dx = rand()  # X movement speed
-		#self.dy = rand()  # Y movement speed
-		#self.commDistance = communicationDistance # r
+
+		self.communicating = False
 
 	def move(self, timeSteps):
 		self.x = self.x + (timeSteps * self.dx)
@@ -33,7 +30,7 @@ class Node():
 
 	def getLineSegmemnt(self):
 		startPoint = (self.x, self.y)
-		endPoint = (self.x + (40*self.dx), self.y + (40*self.dy))
+		endPoint = (self.x + (60*self.dx), self.y + (60*self.dy))
 		return (startPoint, endPoint)
 
 	def getFatLineSegemnets(self):
@@ -63,6 +60,24 @@ class Node():
 		n1.dy = self.dx
 		perpSeg = n1.getLineSegmemnt()
 
+
+		intersectPoint1 = self.lineIntersection(perpSeg, l1)
+		intersectPoint2 = self.lineIntersection(perpSeg, l2)
+
+		n1 = Node()
+		n1.x = intersectPoint1[0]
+		n1.y = intersectPoint1[1]
+		n1.dx = self.dx
+		n1.dy = self.dy
+		l1 = n1.getLineSegmemnt()
+
+		n2 = Node()
+		n2.x = intersectPoint2[0]
+		n2.y = intersectPoint2[1]
+		n2.dx = self.dx
+		n2.dy = self.dy
+		l2 = n2.getLineSegmemnt()
+
 		return (l1, l2)
 
 
@@ -90,5 +105,22 @@ class Node():
 			self.dx = abs(self.dx)
 		if self.y <= 1:
 			self.dy = abs(self.dy)
+
+
+	def lineIntersection(self, line1, line2):
+	    xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
+	    ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1]) #Typo was here
+
+	    def det(a, b):
+	        return a[0] * b[1] - a[1] * b[0]
+
+	    div = det(xdiff, ydiff)
+	    if div == 0:
+	       return (math.inf, math.inf)
+
+	    d = (det(*line1), det(*line2))
+	    x = det(d, xdiff) / div
+	    y = det(d, ydiff) / div
+	    return x, y
 
 

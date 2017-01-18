@@ -51,6 +51,11 @@ class Environment():
 			return math.inf
 
 
+	def getTimeUntilNodeEntersRadius(self, Node1, Node2):
+
+		return math.inf
+
+
 	def getTimeUntilNodeReachesPoint(self, Node, Point):
 		if Point[0] == math.inf:
 			return math.inf
