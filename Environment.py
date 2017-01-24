@@ -17,6 +17,9 @@ class Environment():
 		self.clock = 0
 		self.debug = debug
 
+		self.communicationEvents = list()
+		self.startComm = 0
+
 		for i in range(numNodes):
 			self.nodeList.append(Node(smin, smax, r))
 			self.nodeList[i].x = random.randint(1, size-1)
@@ -122,10 +125,13 @@ class Environment():
 			print("Enter Event")
 			event.node1.communicating = True
 			event.node2.communicating = True
+			self.startComm = self.clock
 		elif event.type == "exit":
 			print("Exit Event")
 			event.node1.communicating = False
 			event.node2.communicating = False
+			self.endComm = self.clock
+			self.communicationEvents.append(self.startComm, self.endComm)
 		else:
 			print("Cannot handle event of type: " + str(event.type))
 

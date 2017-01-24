@@ -81,7 +81,8 @@ def main():
 
 		output.draw(env.nodeList)
 
-		
+	print("Comm list: ")
+	print(env.communicationEvents)
 
 
 
