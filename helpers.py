@@ -35,12 +35,12 @@ def predictTimeToExit(Node1, Node2):
 	time = 0
 
 	# Clone Nodes
-	N1 = Node(0, 0)
+	N1 = Node(0, 0, 4)
 	N1.x = Node1.x
 	N1.y = Node1.y
 	N1.dx = Node1.dx
 	N1.dy = Node1.dy
-	N2 = Node(0, 0)
+	N2 = Node(0, 0, 4)
 	N2.x = Node2.x
 	N2.y = Node2.y
 	N2.dx = Node2.dx
@@ -66,12 +66,12 @@ def predictTimeToExit(Node1, Node2):
 
 def test():
 	print("Starting test")
-	Node1 = Node(0, 0)
+	Node1 = Node(0, 0, 4)
 	Node1.x = 3
 	Node1.y = 6
 	Node1.dx = 1
 	Node1.dy = 2
-	Node2 = Node(0, 0)
+	Node2 = Node(0, 0, 4)
 	Node2.x = 11
 	Node2.y = 6
 	Node2.dx = -1
@@ -82,12 +82,12 @@ def test():
 
 
 
-	Node1 = Node(0, 0)
+	Node1 = Node(0, 0, 4)
 	Node1.x = 3
 	Node1.y = 6
 	Node1.dx = -1
 	Node1.dy = 2
-	Node2 = Node(0, 0)
+	Node2 = Node(0, 0, 4)
 	Node2.x = 11
 	Node2.y = 6
 	Node2.dx = 1
@@ -97,12 +97,12 @@ def test():
 	assert(predictTimeToExit(Node1, Node2) == math.inf)
 
 
-	Node1 = Node(0, 0)
+	Node1 = Node(0, 0, 4)
 	Node1.x = 3
 	Node1.y = 6
 	Node1.dx = 1
 	Node1.dy = 2
-	Node2 = Node(0, 0)
+	Node2 = Node(0, 0, 4)
 	Node2.x = 11
 	Node2.y = 6
 	Node2.dx = -1

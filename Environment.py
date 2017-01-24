@@ -5,20 +5,20 @@ import queue as q
 
 import random
 
+from Event import Event
 from Node import Node
+from helpers import *
 
 class Environment():
-	def __init__(self, size, numNodes, smin, smax):
+	def __init__(self, size, numNodes, smin, smax, r, debug=False):
 		self.eventList = q.PriorityQueue(maxsize=0)
 		self.nodeList = list() # list of nodes in environment
 		self.size = size
 		self.clock = 0
-
-		self.smin = smin
-		self.smax = smax
+		self.debug = debug
 
 		for i in range(numNodes):
-			self.nodeList.append(Node(self.smin, self.smax))
+			self.nodeList.append(Node(smin, smax, r))
 			self.nodeList[i].x = random.randint(1, size-1)
 			self.nodeList[i].y = random.randint(1, size-1)
 			self.nodeList[i].dx = random.randint(smin, smax)
@@ -88,3 +88,38 @@ class Environment():
 	    x = det(d, xdiff) / div
 	    y = det(d, ydiff) / div
 	    return x, y
+
+	def queueNextEvents(self):
+		self.eventList = q.PriorityQueue(maxsize=0)
+		if self.nodeList[0].communicating == False:
+			self.eventList.put(Event(predictTimeToEnter(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "enter"))
+		else:
+			self.eventList.put(Event(predictTimeToExit(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "exit"))
+
+		self.eventList.put(Event(self.getTimeTillWallIsHit(self.nodeList[0]), self.nodeList[0], None, "bounce"))
+		self.eventList.put(Event(self.getTimeTillWallIsHit(self.nodeList[1]), self.nodeList[1], None, "bounce"))
+
+		if self.debug:
+			self.eventList.put(Event(1, None, None, "debug"))
+
+	def handleEvent(self, event):
+		if event.type == "bounce":
+			print("Wall Event")
+			event.node1.bounceOffWall()
+		elif event.type == "debug":
+			temp = self.eventList.get()
+			self.eventList.put(temp)
+			print("Next event in " + str(temp.eventTime) + " of type: " + temp.type)
+			print("Node1: " + str(self.nodeList[0].x) + ", " + str(self.nodeList[0].y))
+			print("Node2: " + str(self.nodeList[1].x) + ", " + str(self.nodeList[1].y))
+		elif event.type == "enter":
+			print("Enter Event")
+			event.node1.communicating = True
+			event.node2.communicating = True
+		elif event.type == "exit":
+			print("Exit Event")
+			event.node1.communicating = False
+			event.node2.communicating = False
+		else:
+			print("Cannot handle event of type: " + str(event.type))
+

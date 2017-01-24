@@ -19,10 +19,10 @@ from helpers import *
 #debug
 import time
 
-def getLineSegmemnt(Node):
-	startPoint = (Node.x, Node.y)
-	endPoint = (Node.x + (40*Node.dx), Node.y + (40*Node.dy))
-	return (startPoint, endPoint)
+#def getLineSegmemnt(Node):
+	#startPoint = (Node.x, Node.y)
+	#endPoint = (Node.x + (40*Node.dx), Node.y + (40*Node.dy))
+	#return (startPoint, endPoint)
 
 
 
@@ -42,37 +42,35 @@ def main():
 	duration = int(args[5])
 	drawingEnabled = False
 
+	debug = True
+
 	if len(args) > 6 and args[6] == "true":
 		drawingEnabled = True
 
 	random.seed(seed)
 
-	env = Environment(40, 2, smin, smax)
+	env = Environment(40, 2, smin, smax, r, debug=True)
 	output = Drawer(40, 40)
 
-	env.eventList = q.PriorityQueue(maxsize=0)
-	env.eventList.put(Event(env.getTimeTillCollisionEvent(env.nodeList[0], env.nodeList[1]), env.nodeList[0], env.nodeList[1], "node intersect"))
-	env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[0]), env.nodeList[0], None, "wall"))
-	env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[1]), env.nodeList[1], None, "wall"))
+	env.queueNextEvents()
 
-	for i in range(100):
-		output.draw(env.nodeList)
+	output.draw(env.nodeList)
+	while env.clock < duration:
+		
 		nextEvent = env.eventList.get()
-		print("Next Event: " + nextEvent.type + " in: " + str(nextEvent.eventTime))
-		print("Node1: " + str(env.nodeList[0].x) + ", " + str(env.nodeList[0].y))
-		print("Node2: " + str(env.nodeList[1].x) + ", " + str(env.nodeList[1].y))
 		env.moveNodes(nextEvent.eventTime)
-		if nextEvent.type == "wall":
-			nextEvent.node1.bounceOffWall()
+		env.handleEvent(nextEvent)
+		
+		tempEvent = env.eventList.get()
+		while tempEvent.eventTime == nextEvent.eventTime:
+			env.handleEvent(tempEvent)
+		env.eventList.put(tempEvent)
 
 		env.moveNodes(1)
-
-		env.eventList = q.PriorityQueue(maxsize=0)
-		env.eventList.put(Event(env.getTimeTillCollisionEvent(env.nodeList[0], env.nodeList[1]), env.nodeList[0], env.nodeList[1], "node intersect"))
-		env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[0]), env.nodeList[0], None, "wall"))
-		env.eventList.put(Event(env.getTimeTillWallIsHit(env.nodeList[1]), env.nodeList[1], None, "wall"))
-		
+		env.queueNextEvents()
 		time.sleep(0.5)
+
+		output.draw(env.nodeList)
 
 		
 

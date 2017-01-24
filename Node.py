@@ -3,12 +3,12 @@
 import random
 
 class Node():
-	def __init__(self, smin, smax):
+	def __init__(self, smin, smax, radius):
 		self.x = 4
 		self.y = 5
 		self.dx = 1
 		self.dy = 1
-		self.radius = 4
+		self.radius = radius
 
 		self.smin = smin
 		self.smax = smax
