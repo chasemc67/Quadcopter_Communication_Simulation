@@ -58,13 +58,14 @@ def main():
 	while env.clock < duration:
 		
 		nextEvent = env.eventList.get()
-		print("Events: ")
-		while not env.eventList.empty():
-			print("Next Event: ")
-			print("time: " + str(nextEvent.eventTime))
-			print("type: " + str(nextEvent.type))
-			print("")
-			env.eventList.get()
+		#print("Events: ")
+		
+		#while not env.eventList.empty():
+		#	print("Next Event: ")
+		#	print("time: " + str(nextEvent.eventTime))
+		#	print("type: " + str(nextEvent.type))
+		#	print("")
+		#	env.eventList.get()
 		
 		env.moveNodes(nextEvent.eventTime)
 		env.handleEvent(nextEvent)
