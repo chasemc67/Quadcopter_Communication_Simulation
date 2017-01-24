@@ -6,7 +6,7 @@ class Event():
 		self.valid = True
 		self.node1 = node1
 		self.node2 = node2
-		self.eventTime = eventTime
+		self.eventTime = abs(eventTime)
 		self.type = eventType
 
 	# http://stackoverflow.com/questions/10045405/overloading-comparator-of-priority-queue-in-python

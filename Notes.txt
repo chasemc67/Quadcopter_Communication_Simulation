@@ -23,8 +23,12 @@ toDo:
 [+] Sort queue by Event attribute, not tuple
 [+] Make nodes "bounce" off walls
 [+] Skip to events
-[ ] Fix timing of events being pushed onto queue. Specifically wall events getting stuck
+[+] Fix timing of events being pushed onto queue. Specifically wall events getting stuck
 [ ] Check that events are working properly
 [ ] Handle simultaneous events
 [ ] Create object to keep track of communication intervals
 [ ] Plot with python 
+
+
+
+issue appears to be with handling exit events. 

@@ -53,6 +53,8 @@ def main():
 	output = Drawer(40, 40)
 
 	env.queueNextEvents()
+	print("Wtf")
+	env.printEventQueue()
 
 	output.draw(env.nodeList)
 	while env.clock < duration:
@@ -60,7 +62,7 @@ def main():
 		nextEvent = env.eventList.get()
 		print("Events: ")
 		
-		env.printEventQueue()
+		#env.printEventQueue()
 		
 		env.moveNodes(nextEvent.eventTime)
 		env.handleEvent(nextEvent)
@@ -80,6 +82,8 @@ def main():
 			print("")
 
 		output.draw(env.nodeList)
+
+	env.handleEvent(Event(1, None, None, "end"))
 
 	print("Comm list: ")
 	print(env.communicationEvents)

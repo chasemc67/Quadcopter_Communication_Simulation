@@ -34,20 +34,20 @@ def predictTimeToEnter(Node1, Node2):
 def predictTimeToExit(Node1, Node2):
 	time = 0
 
-	# Clone Nodes
+	# Clone Nodes, and offset so we don't worry about negatives
 	N1 = Node(0, 0, 4)
-	N1.x = Node1.x
-	N1.y = Node1.y
-	N1.dx = Node1.dx
+	N1.x = Node1.x + Node1.radius*1000
+	N1.y = Node1.y + Node1.radius*1000
+	N1.dx = Node1.dx 
 	N1.dy = Node1.dy
 	N2 = Node(0, 0, 4)
-	N2.x = Node2.x
-	N2.y = Node2.y
+	N2.x = Node2.x + Node1.radius*1000
+	N2.y = Node2.y + Node1.radius*1000
 	N2.dx = Node2.dx
 	N2.dy = Node2.dy
 
-	if predictTimeToEnter(N1, N2) == math.inf:
-		if getEquclidianDist((N1.x, N1.y), (N2.x, N2.y)) > Node1.radius:
+	if (predictTimeToEnter(N1, N2) == math.inf):
+		if (getEquclidianDist((N1.x, N1.y), (N2.x, N2.y)) > Node1.radius):
 			return math.inf
 		time = (Node1.radius * 5)
 	else:
@@ -79,7 +79,6 @@ def test():
 
 	assert(predictTimeToEnter(Node1, Node2) == 2.0)
 	assert(predictTimeToExit(Node1, Node2) == 6.0)
-
 
 
 	Node1 = Node(0, 0, 4)
@@ -118,7 +117,7 @@ def test():
 	print("Test passed")
 
 
-test()
+#test()
 
 
 

@@ -43,6 +43,7 @@ class Environment():
 
 
 	def moveNodes(self, timeSteps):
+		#print("Trying to move nodes: " + str(timeSteps))
 		self.clock += timeSteps
 		for node in self.nodeList:
 			node.move(timeSteps)
@@ -101,9 +102,11 @@ class Environment():
 	def queueNextEvents(self):
 		self.eventList = q.PriorityQueue(maxsize=0)
 		if self.nodeList[0].communicating == False:
-			self.eventList.put(Event(predictTimeToEnter(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "enter"))
+			if (predictTimeToEnter(self.nodeList[0], self.nodeList[1])) != math.inf:
+				self.eventList.put(Event(predictTimeToEnter(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "enter"))
 		else:
-			self.eventList.put(Event(predictTimeToExit(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "exit"))
+			if (predictTimeToExit(self.nodeList[0], self.nodeList[1])) != math.inf:
+				self.eventList.put(Event(predictTimeToExit(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "exit"))
 
 		self.eventList.put(Event(self.getTimeTillWallIsHit(self.nodeList[0]), self.nodeList[0], None, "bounce"))
 		self.eventList.put(Event(self.getTimeTillWallIsHit(self.nodeList[1]), self.nodeList[1], None, "bounce"))
@@ -118,7 +121,7 @@ class Environment():
 		elif event.type == "debug":
 			temp = self.eventList.get()
 			self.eventList.put(temp)
-			print("Next event in " + str(temp.eventTime) + " of type: " + temp.type)
+			print("Debug: Next event in " + str(temp.eventTime) + " of type: " + temp.type)
 			print("Node1: " + str(self.nodeList[0].x) + ", " + str(self.nodeList[0].y))
 			print("Node2: " + str(self.nodeList[1].x) + ", " + str(self.nodeList[1].y))
 		elif event.type == "enter":
@@ -131,7 +134,11 @@ class Environment():
 			event.node1.communicating = False
 			event.node2.communicating = False
 			self.endComm = self.clock
-			self.communicationEvents.append(self.startComm, self.endComm)
+			self.communicationEvents.append((self.startComm, self.endComm))
+		elif event.type == "end":
+			if self.nodeList[0].communicating:
+				self.endComm = self.clock
+				self.communicationEvents.append((self.startComm, self.endComm))
 		else:
 			print("Cannot handle event of type: " + str(event.type))
 
