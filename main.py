@@ -58,17 +58,35 @@ def main():
 	while env.clock < duration:
 		
 		nextEvent = env.eventList.get()
+		print("Events: ")
+		while not env.eventList.empty():
+			print("Next Event: ")
+			print("time: " + str(nextEvent.eventTime))
+			print("type: " + str(nextEvent.type))
+			print("")
+			env.eventList.get()
+		
 		env.moveNodes(nextEvent.eventTime)
 		env.handleEvent(nextEvent)
-		
-		tempEvent = env.eventList.get()
-		while tempEvent.eventTime == nextEvent.eventTime:
-			env.handleEvent(tempEvent)
-		env.eventList.put(tempEvent)
 
-		env.moveNodes(1)
+		
+		#tempEvent = env.eventList.get()
+		#while tempEvent.eventTime == nextEvent.eventTime:
+		#	env.handleEvent(tempEvent)
+		#env.eventList.put(tempEvent)
+
 		env.queueNextEvents()
 		time.sleep(0.5)
+
+		#print nodelist
+		for node in env.nodeList:
+			print("Node: ")
+			print("x: " + str(node.x))
+			print("y: " + str(node.y))
+			print("dx: " + str(node.dx))
+			print("dy: " + str(node.dy))
+			print("comm: " + str(node.communicating))
+			print("")
 
 		output.draw(env.nodeList)
 

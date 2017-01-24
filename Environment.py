@@ -34,6 +34,10 @@ class Environment():
 			self.nodeList[i].dx = self.nodeList[i].dx * directionX
 			self.nodeList[i].dy = self.nodeList[i].dy * directionY
 
+		if getEquclidianDist((self.nodeList[0].x, self.nodeList[0].y), (self.nodeList[1].x, self.nodeList[1].y)) < self.nodeList[0].radius:
+			self.nodeList[0].communicating = True
+			self.nodeList[1].communicating = True
+
 
 	def moveNodes(self, timeSteps):
 		self.clock += timeSteps
@@ -69,13 +73,15 @@ class Environment():
 		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, 0), (self.size-1, 0))))))
 		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((self.size-1, 0), (self.size-1, self.size-1))))))
 		wallList.append(abs(self.getTimeUntilNodeReachesPoint(Node, self.lineIntersection(Node.getLineSegmemnt(), ((0, self.size-1), (self.size-1, self.size-1))))))
+		while min(wallList) <= 0:
+			wallList.remove(min(wallList))
 		return min(wallList)
 
 	# Returns the intersction point, still need to check
 	# If that intersection will happen in future
 	def lineIntersection(self, line1, line2):
 	    xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
-	    ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1]) #Typo was here
+	    ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
 
 	    def det(a, b):
 	        return a[0] * b[1] - a[1] * b[0]
@@ -104,7 +110,7 @@ class Environment():
 
 	def handleEvent(self, event):
 		if event.type == "bounce":
-			print("Wall Event")
+			print("bounce event with node: " + str(event.node1.x) + ", " + str(event.node1.y))
 			event.node1.bounceOffWall()
 		elif event.type == "debug":
 			temp = self.eventList.get()
