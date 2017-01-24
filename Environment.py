@@ -129,3 +129,19 @@ class Environment():
 		else:
 			print("Cannot handle event of type: " + str(event.type))
 
+	def printEventQueue(self):
+		tq1 = q.PriorityQueue(maxsize=0)
+		print("==================================")
+		print("Printing Event Queue: ")
+		while( not self.eventList.empty()):
+			temp = self.eventList.get()
+			tq1.put(temp)
+			print("Event: ")
+			print("time: " + str(temp.eventTime))
+			print("type: " + str(temp.type))
+			print("")
+		while(not tq1.empty()):
+			temp = tq1.get()
+			self.eventList.put(temp)
+
+		print("==================================")

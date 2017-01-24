@@ -49,7 +49,7 @@ def main():
 
 	random.seed(seed)
 
-	env = Environment(40, 2, smin, smax, r, debug=True)
+	env = Environment(40, 2, smin, smax, r, debug=False)
 	output = Drawer(40, 40)
 
 	env.queueNextEvents()
@@ -58,23 +58,13 @@ def main():
 	while env.clock < duration:
 		
 		nextEvent = env.eventList.get()
-		#print("Events: ")
+		print("Events: ")
 		
-		#while not env.eventList.empty():
-		#	print("Next Event: ")
-		#	print("time: " + str(nextEvent.eventTime))
-		#	print("type: " + str(nextEvent.type))
-		#	print("")
-		#	env.eventList.get()
+		env.printEventQueue()
 		
 		env.moveNodes(nextEvent.eventTime)
 		env.handleEvent(nextEvent)
 
-		
-		#tempEvent = env.eventList.get()
-		#while tempEvent.eventTime == nextEvent.eventTime:
-		#	env.handleEvent(tempEvent)
-		#env.eventList.put(tempEvent)
 
 		env.queueNextEvents()
 		time.sleep(0.5)

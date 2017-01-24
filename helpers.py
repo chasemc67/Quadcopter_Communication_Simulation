@@ -47,7 +47,7 @@ def predictTimeToExit(Node1, Node2):
 	N2.dy = Node2.dy
 
 	if predictTimeToEnter(N1, N2) == math.inf:
-		if getEquclidianDist((Node1.x, Node1.y), (Node2.x, Node2.y)) > Node1.radius:
+		if getEquclidianDist((N1.x, N1.y), (N2.x, N2.y)) > Node1.radius:
 			return math.inf
 		time = (Node1.radius * 5)
 	else:
