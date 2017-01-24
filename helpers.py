@@ -20,6 +20,15 @@ def predictTimeToEnter(Node1, Node2):
 	sig = Node1.radius
 
 	d = (dvdr * dvdr) - (dvdv * (drdr - sig*sig))
+
+	if dvdr >= 0:
+		return math.inf
+	if d < 0:
+		return math.inf
+
+	if (-(dvdr + math.sqrt(d))/dvdv) < 0:
+		return math.inf
+
 	return (-(dvdr + math.sqrt(d))/dvdv)
 
 def predictTimeToExit(Node1, Node2):
@@ -38,8 +47,12 @@ def predictTimeToExit(Node1, Node2):
 	N2.dy = Node2.dy
 
 	if predictTimeToEnter(N1, N2) == math.inf:
-		return math.inf
-	time = predictTimeToEnter(N1, N2) + (Node1.radius * 5)
+		if getEquclidianDist((Node1.x, Node1.y), (Node2.x, Node2.y)) > Node1.radius:
+			return math.inf
+		time = (Node1.radius * 5)
+	else:
+		time = predictTimeToEnter(N1, N2) + (Node1.radius * 5)
+
 	N1.move(time)
 	N2.move(time)
 
@@ -52,6 +65,7 @@ def predictTimeToExit(Node1, Node2):
 	return time - predictTimeToEnter(N1, N2)
 
 def test():
+	print("Starting test")
 	Node1 = Node(0, 0)
 	Node1.x = 3
 	Node1.y = 6
@@ -63,12 +77,48 @@ def test():
 	Node2.dx = -1
 	Node2.dy = 2
 
-	print("Enter in: ")
-	print(predictTimeToEnter(Node1, Node2))
-	print("")
+	assert(predictTimeToEnter(Node1, Node2) == 2.0)
+	assert(predictTimeToExit(Node1, Node2) == 6.0)
 
-	print("Exit in: ")
-	print(predictTimeToExit(Node1, Node2))
+
+
+	Node1 = Node(0, 0)
+	Node1.x = 3
+	Node1.y = 6
+	Node1.dx = -1
+	Node1.dy = 2
+	Node2 = Node(0, 0)
+	Node2.x = 11
+	Node2.y = 6
+	Node2.dx = 1
+	Node2.dy = 2
+
+	assert(predictTimeToEnter(Node1, Node2) == math.inf)
+	assert(predictTimeToExit(Node1, Node2) == math.inf)
+
+
+	Node1 = Node(0, 0)
+	Node1.x = 3
+	Node1.y = 6
+	Node1.dx = 1
+	Node1.dy = 2
+	Node2 = Node(0, 0)
+	Node2.x = 11
+	Node2.y = 6
+	Node2.dx = -1
+	Node2.dy = 2
+
+	Node1.move(3)
+	Node2.move(3)
+
+	assert(predictTimeToEnter(Node1, Node2) == math.inf)
+	assert(predictTimeToExit(Node1, Node2) == 3.0)
+
+
+	print("Test passed")
+
+
+test()
 
 
 

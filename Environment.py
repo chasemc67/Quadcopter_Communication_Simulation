@@ -42,18 +42,13 @@ class Environment():
 
 	# returns number of time steps until a collision will happen
 	# If both nodes stay on their current coarse
-	def getTimeTillCollisionEvent(self, Node1, Node2):
-		intersectionPoint = self.lineIntersection(Node1.getLineSegmemnt(), Node2.getLineSegmemnt())
-		
-		if self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint) < math.inf and self.getTimeUntilNodeReachesPoint(Node2, intersectionPoint) < math.inf:
-			return abs(self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint))
-		else:
-			return math.inf
-
-
-	def getTimeUntilNodeEntersRadius(self, Node1, Node2):
-
-		return math.inf
+	#def getTimeTillCollisionEvent(self, Node1, Node2):
+	#	intersectionPoint = self.lineIntersection(Node1.getLineSegmemnt(), Node2.getLineSegmemnt())
+	#	
+	#	if self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint) < math.inf and self.getTimeUntilNodeReachesPoint(Node2, intersectionPoint) < math.inf:
+	#		return abs(self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint))
+	#	else:
+	#		return math.inf
 
 
 	def getTimeUntilNodeReachesPoint(self, Node, Point):

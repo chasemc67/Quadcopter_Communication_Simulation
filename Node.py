@@ -19,10 +19,6 @@ class Node():
 		self.x = self.x + (timeSteps * self.dx)
 		self.y = self.y + (timeSteps * self.dy)
 
-	def hitWall(self):
-		return
-		# randomize angle and speed or whateve
-
 	def setRandomSpeed(smin, smax):
 		# X axis and y-axis speeds are chosen randomly 
 		# Between args smin and smax
@@ -32,54 +28,6 @@ class Node():
 		startPoint = (self.x, self.y)
 		endPoint = (self.x + (60*self.dx), self.y + (60*self.dy))
 		return (startPoint, endPoint)
-
-	def getFatLineSegemnets(self):
-		# This will give us the line segments,
-		# Can then find where the intersect with a segment perpendicular
-		# To the node trajectory to find the start point
-		startPoint = (self.x, self.y)
-		if self.dx == 0:
-			s1 = ((self.x + self.radius), self.y)
-			s2 = ((self.x - self.radius), self.y)
-		else:
-			s1 = (self.x, (self.y + self.radius))
-			s2 = (self.x, (self.y - self.radius))
-
-		e1 = ((s1[0] + (40*self.dx)), (s1[1] + (40*self.dy)))
-		e2 = ((s2[0] + (40*self.dx)), (s2[1] + (40*self.dy)))
-
-		l1 = (s1, e1)
-		l2 = (s2, e2)
-
-		# Get a perpendicular segment
-		# And find intersection with fat lines to get start point
-		n1 = Node()
-		n1.x = self.x
-		n1.y = self.y
-		n1.dx = -self.dy
-		n1.dy = self.dx
-		perpSeg = n1.getLineSegmemnt()
-
-
-		intersectPoint1 = self.lineIntersection(perpSeg, l1)
-		intersectPoint2 = self.lineIntersection(perpSeg, l2)
-
-		n1 = Node()
-		n1.x = intersectPoint1[0]
-		n1.y = intersectPoint1[1]
-		n1.dx = self.dx
-		n1.dy = self.dy
-		l1 = n1.getLineSegmemnt()
-
-		n2 = Node()
-		n2.x = intersectPoint2[0]
-		n2.y = intersectPoint2[1]
-		n2.dx = self.dx
-		n2.dy = self.dy
-		l2 = n2.getLineSegmemnt()
-
-		return (l1, l2)
-
 
 
 	def bounceOffWall(self):
