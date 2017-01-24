@@ -24,6 +24,7 @@ toDo:
 [+] Make nodes "bounce" off walls
 [+] Skip to events
 [+] Fix timing of events being pushed onto queue. Specifically wall events getting stuck
+[ ] Fix bug where nodes should always be in radius
 [ ] Check that events are working properly
 [ ] Handle simultaneous events
 [ ] Create object to keep track of communication intervals

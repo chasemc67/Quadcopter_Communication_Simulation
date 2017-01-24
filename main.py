@@ -71,16 +71,6 @@ def main():
 		env.queueNextEvents()
 		time.sleep(0.5)
 
-		#print nodelist
-		for node in env.nodeList:
-			print("Node: ")
-			print("x: " + str(node.x))
-			print("y: " + str(node.y))
-			print("dx: " + str(node.dx))
-			print("dy: " + str(node.dy))
-			print("comm: " + str(node.communicating))
-			print("")
-
 		output.draw(env.nodeList)
 
 	env.handleEvent(Event(1, None, None, "end"))
