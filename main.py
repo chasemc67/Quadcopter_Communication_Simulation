@@ -53,10 +53,10 @@ def main():
 	while env.clock < duration:
 		
 		nextEvent = env.eventList.get()
-		print("Events: ")
-		
-		#env.printEventQueue()
-		
+		if env.clock + nextEvent.eventTime > duration:
+			env.moveNodes(duration - env.clock)
+			continue
+
 		env.moveNodes(nextEvent.eventTime)
 		env.handleEvent(nextEvent)
 
