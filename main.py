@@ -16,9 +16,6 @@ import queue as q
 
 from helpers import *
 
-#debug
-import time
-
 
 def main():
 	args = sys.argv
@@ -62,7 +59,6 @@ def main():
 
 
 		env.queueNextEvents()
-		#time.sleep(0.5)
 
 		output.draw(env.nodeList)
 
