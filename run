@@ -1,2 +1,2 @@
 #!/bin/bash
-python main.py 1 2 100 131412 1000 true 
+python main.py 1 2 10 131412 1000 false

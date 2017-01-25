@@ -66,7 +66,9 @@ def main():
 
 	
 	resultsLog(str(env.communicationEvents))
-
+	comms = createCommLengthsFromIntervals(env.communicationEvents)
+	print("Average Encounter time: " + str(getAvgEncounerTime(comms)))
+	plotComms(comms)
 
 
 main()
