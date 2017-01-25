@@ -9,6 +9,8 @@ from Event import Event
 from Node import Node
 from helpers import *
 
+from logger import *
+
 class Environment():
 	def __init__(self, size, numNodes, smin, smax, r, debug=False):
 		self.eventList = q.PriorityQueue(maxsize=0)
@@ -106,6 +108,7 @@ class Environment():
 				self.eventList.put(Event(predictTimeToEnter(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "enter"))
 		else:
 			if (predictTimeToExit(self.nodeList[0], self.nodeList[1])) != math.inf:
+				errorLog("Predicting exit event in " + str(predictTimeToExit(self.nodeList[0], self.nodeList[1])) + " For nodes: " + self.nodeList[0].toString() + " " + self.nodeList[1].toString())
 				self.eventList.put(Event(predictTimeToExit(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "exit"))
 
 		self.eventList.put(Event(self.getTimeTillWallIsHit(self.nodeList[0]), self.nodeList[0], None, "bounce"))
@@ -131,6 +134,7 @@ class Environment():
 			self.startComm = self.clock
 		elif event.type == "exit":
 			print("Exit Event")
+			errorLog("Exit event: \n" + event.node1.toString() + event.node2.toString())
 			event.node1.communicating = False
 			event.node2.communicating = False
 			self.endComm = self.clock

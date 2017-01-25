@@ -19,12 +19,6 @@ from helpers import *
 #debug
 import time
 
-#def getLineSegmemnt(Node):
-	#startPoint = (Node.x, Node.y)
-	#endPoint = (Node.x + (40*Node.dx), Node.y + (40*Node.dy))
-	#return (startPoint, endPoint)
-
-
 
 def main():
 	args = sys.argv
@@ -53,7 +47,6 @@ def main():
 	output = Drawer(40, 40)
 
 	env.queueNextEvents()
-	print("Wtf")
 	env.printEventQueue()
 
 	output.draw(env.nodeList)
@@ -69,7 +62,7 @@ def main():
 
 
 		env.queueNextEvents()
-		time.sleep(0.5)
+		#time.sleep(0.5)
 
 		output.draw(env.nodeList)
 

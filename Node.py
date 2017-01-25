@@ -71,4 +71,6 @@ class Node():
 	    y = det(d, ydiff) / div
 	    return x, y
 
+	def toString(self):
+		return ("\nNode: \nx: " + str(self.x) + "\ny: " + str(self.y) + "\ndx: " + str(self.dx) + "\ndy: " + str(self.dy) + "\nrad: " + str(self.radius) + "\ncomm: " + str(self.communicating) + "\n\n")
 

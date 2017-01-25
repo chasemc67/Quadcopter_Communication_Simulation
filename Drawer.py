@@ -38,4 +38,4 @@ class Drawer():
 				sys.stdout.flush()
 			sys.stdout.write('%s\n' % y)
 			sys.stdout.flush()
-		time.sleep(0.25)
+		time.sleep(0.1)

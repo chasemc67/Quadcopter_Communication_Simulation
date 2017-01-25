@@ -36,15 +36,17 @@ def predictTimeToExit(Node1, Node2):
 
 	# Clone Nodes, and offset so we don't worry about negatives
 	N1 = Node(0, 0, 4)
-	N1.x = Node1.x + Node1.radius*1000
-	N1.y = Node1.y + Node1.radius*1000
+	N1.x = Node1.x + Node1.radius*100
+	N1.y = Node1.y + Node1.radius*100
 	N1.dx = Node1.dx 
 	N1.dy = Node1.dy
+	N1.radius = Node1.radius
 	N2 = Node(0, 0, 4)
-	N2.x = Node2.x + Node1.radius*1000
-	N2.y = Node2.y + Node1.radius*1000
+	N2.x = Node2.x + Node1.radius*100
+	N2.y = Node2.y + Node1.radius*100
 	N2.dx = Node2.dx
 	N2.dy = Node2.dy
+	N2.radius = Node2.radius
 
 	if (predictTimeToEnter(N1, N2) == math.inf):
 		if (getEquclidianDist((N1.x, N1.y), (N2.x, N2.y)) > Node1.radius):
@@ -118,6 +120,27 @@ def test():
 
 
 #test()
+
+
+
+def debugTest():
+	Node1 = Node(0, 0, 4)
+	Node1.x = 27
+	Node1.y = 31
+	Node1.dx = -2
+	Node1.dy = 2
+	Node1.radius = 100
+	Node2 = Node(0, 0, 4)
+	Node2.x = 29
+	Node2.y = 39
+	Node2.dx = -1
+	Node2.dy = -2
+	Node2.radius = 100
+
+	print("Exit in: " + str(predictTimeToExit(Node1, Node2)))
+
+
+#debugTest()
 
 
 
