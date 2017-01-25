@@ -50,16 +50,6 @@ class Environment():
 		for node in self.nodeList:
 			node.move(timeSteps)
 
-	# returns number of time steps until a collision will happen
-	# If both nodes stay on their current coarse
-	#def getTimeTillCollisionEvent(self, Node1, Node2):
-	#	intersectionPoint = self.lineIntersection(Node1.getLineSegmemnt(), Node2.getLineSegmemnt())
-	#	
-	#	if self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint) < math.inf and self.getTimeUntilNodeReachesPoint(Node2, intersectionPoint) < math.inf:
-	#		return abs(self.getTimeUntilNodeReachesPoint(Node1, intersectionPoint))
-	#	else:
-	#		return math.inf
-
 
 	def getTimeUntilNodeReachesPoint(self, Node, Point):
 		if Point[0] == math.inf:
@@ -108,7 +98,6 @@ class Environment():
 				self.eventList.put(Event(predictTimeToEnter(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "enter"))
 		else:
 			if (predictTimeToExit(self.nodeList[0], self.nodeList[1])) != math.inf:
-				errorLog("Predicting exit event in " + str(predictTimeToExit(self.nodeList[0], self.nodeList[1])) + " For nodes: " + self.nodeList[0].toString() + " " + self.nodeList[1].toString())
 				self.eventList.put(Event(predictTimeToExit(self.nodeList[0], self.nodeList[1]), self.nodeList[0], self.nodeList[1], "exit"))
 
 		self.eventList.put(Event(self.getTimeTillWallIsHit(self.nodeList[0]), self.nodeList[0], None, "bounce"))
@@ -119,22 +108,15 @@ class Environment():
 
 	def handleEvent(self, event):
 		if event.type == "bounce":
-			print("bounce event with node: " + str(event.node1.x) + ", " + str(event.node1.y))
 			event.node1.bounceOffWall()
 		elif event.type == "debug":
 			temp = self.eventList.get()
 			self.eventList.put(temp)
-			print("Debug: Next event in " + str(temp.eventTime) + " of type: " + temp.type)
-			print("Node1: " + str(self.nodeList[0].x) + ", " + str(self.nodeList[0].y))
-			print("Node2: " + str(self.nodeList[1].x) + ", " + str(self.nodeList[1].y))
 		elif event.type == "enter":
-			print("Enter Event")
 			event.node1.communicating = True
 			event.node2.communicating = True
 			self.startComm = self.clock
 		elif event.type == "exit":
-			print("Exit Event")
-			errorLog("Exit event: \n" + event.node1.toString() + event.node2.toString())
 			event.node1.communicating = False
 			event.node2.communicating = False
 			self.endComm = self.clock

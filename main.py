@@ -15,6 +15,7 @@ import random
 import queue as q
 
 from helpers import *
+from logger import *
 
 
 def main():
@@ -33,7 +34,7 @@ def main():
 	duration = int(args[5])
 	drawingEnabled = False
 
-	debug = True
+	debug = False
 
 	if len(args) > 6 and args[6] == "true":
 		drawingEnabled = True
@@ -41,10 +42,10 @@ def main():
 	random.seed(seed)
 
 	env = Environment(40, 2, smin, smax, r, debug=False)
-	output = Drawer(40, 40)
+	output = Drawer(40, 40, drawingEnabled)
 
 	env.queueNextEvents()
-	env.printEventQueue()
+	#env.printEventQueue()
 
 	output.draw(env.nodeList)
 	while env.clock < duration:
@@ -57,15 +58,14 @@ def main():
 		env.moveNodes(nextEvent.eventTime)
 		env.handleEvent(nextEvent)
 
-
 		env.queueNextEvents()
 
 		output.draw(env.nodeList)
 
 	env.handleEvent(Event(1, None, None, "end"))
 
-	print("Comm list: ")
-	print(env.communicationEvents)
+	
+	resultsLog(str(env.communicationEvents))
 
 
 

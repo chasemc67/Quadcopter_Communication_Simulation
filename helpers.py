@@ -123,25 +123,4 @@ def test():
 
 
 
-def debugTest():
-	Node1 = Node(0, 0, 4)
-	Node1.x = 27
-	Node1.y = 31
-	Node1.dx = -2
-	Node1.dy = 2
-	Node1.radius = 100
-	Node2 = Node(0, 0, 4)
-	Node2.x = 29
-	Node2.y = 39
-	Node2.dx = -1
-	Node2.dy = -2
-	Node2.radius = 100
-
-	print("Exit in: " + str(predictTimeToExit(Node1, Node2)))
-
-
-#debugTest()
-
-
-
 
