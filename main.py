@@ -56,6 +56,12 @@ def main():
 		env.moveNodes(nextEvent.eventTime)
 		env.handleEvent(nextEvent)
 
+		tempEvent = env.eventList.get()
+		while(tempEvent.eventTime == nextEvent.eventTime):
+			env.handleEvent(tempEvent)
+			tempEvent = env.eventList.get()
+
+
 		env.queueNextEvents()
 
 		output.draw(env.nodeList)

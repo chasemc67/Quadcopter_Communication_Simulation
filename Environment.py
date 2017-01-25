@@ -12,6 +12,9 @@ from helpers import *
 from logger import *
 
 class Environment():
+	# if debug is true, an event will be placed to draw the board
+	# at each time interval.
+	# Otherwise the board is only drawn at events
 	def __init__(self, size, numNodes, smin, smax, r, debug=False):
 		self.eventList = q.PriorityQueue(maxsize=0)
 		self.nodeList = list() # list of nodes in environment
