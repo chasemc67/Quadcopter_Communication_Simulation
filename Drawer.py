@@ -22,22 +22,27 @@ class Drawer():
 	def nodeAtPosition(self, nodeList, posX, posY):
 		for node in nodeList:
 			if math.ceil(node.x) == posX and math.ceil(node.y) == posY:
-				return True
-		return False
+				if node.communicating == True:
+					return 2
+				else:
+					return 1
+		return 0
 
 	def draw(self, nodeList):
 		if self.enabled == True:
 			self.clear()
 			for y in range(self.height):			
 				#sys.stdout.write('\x1b[6;30;42m %s \x1b[0m' % y)
-				sys.stdout.write('\x1b[1;31;47m %s \x1b[0m' % y)
-				sys.stdout.flush()
+				#sys.stdout.write('\x1b[1;31;47m %s \x1b[0m' % y)
+				#sys.stdout.flush()
 				for x in range(self.width):
-					if (self.nodeAtPosition(nodeList, x, y)):
+					if (self.nodeAtPosition(nodeList, x, y) == 2):
+						sys.stdout.write('\x1b[1;31;47mo \x1b[0m')	
+					elif (self.nodeAtPosition(nodeList, x, y) == 1):
 						sys.stdout.write('\x1b[1;34;47mo \x1b[0m')	
 					else:
 						sys.stdout.write('\x1b[1;34;47m  \x1b[0m')
 					sys.stdout.flush()
-				sys.stdout.write('%s\n' % y)
+				sys.stdout.write('\n')
 				sys.stdout.flush()
 			time.sleep(0.1)

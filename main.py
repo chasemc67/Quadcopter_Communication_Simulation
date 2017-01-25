@@ -34,14 +34,12 @@ def main():
 	duration = int(args[5])
 	drawingEnabled = False
 
-	debug = False
-
-	if len(args) > 6 and args[6] == "true":
+	if len(args) > 6 and args[6].lower() == "true":
 		drawingEnabled = True
 
 	random.seed(seed)
 
-	env = Environment(40, 2, smin, smax, r, debug=False)
+	env = Environment(40, 2, smin, smax, r, drawingEnabled)
 	output = Drawer(40, 40, drawingEnabled)
 
 	env.queueNextEvents()
