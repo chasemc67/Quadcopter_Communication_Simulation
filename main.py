@@ -72,6 +72,7 @@ def main():
 	resultsLog(str(env.communicationEvents))
 	comms = createCommLengthsFromIntervals(env.communicationEvents)
 	print("Average Encounter time: " + str(getAvgEncounerTime(comms)))
+	print("Time spent communicationg: " + str(env.getCommsPercent()) + '%')
 	plotComms(comms)
 
 

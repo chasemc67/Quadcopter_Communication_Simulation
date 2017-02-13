@@ -23,6 +23,7 @@ class Environment():
 		self.debug = debug
 
 		self.communicationEvents = list()
+		self.averageComms = list() # tuples of (time, CommPercent)
 		self.startComm = 0
 
 		for i in range(numNodes):
@@ -109,7 +110,26 @@ class Environment():
 		if self.debug:
 			self.eventList.put(Event(1, None, None, "debug"))
 
+	# Get the % of total sim time communication has happened
+	def getCommsPercent(self):
+
+		#print("Clock: " + str(self.clock))
+		#print("startComm: " + str(self.startComm))
+		#print("communicationEvents: " + str(self.communicationEvents))
+
+
+		total = 0
+		for i in self.communicationEvents:
+			total += (i[1] - i[0])
+		return ((total / self.clock) * 100)
+
 	def handleEvent(self, event):
+		if len(self.averageComms) > 0:
+			if self.clock > ((self.averageComms[len(self.averageComms)-1][0]) + 10):
+				self.averageComms.append((self.clock, self.getCommsPercent))
+		else:
+			self.averageComms.append((self.clock, self.getCommsPercent()))
+
 		if event.type == "bounce":
 			event.node1.bounceOffWall()
 		elif event.type == "debug":
@@ -124,6 +144,7 @@ class Environment():
 			event.node2.communicating = False
 			self.endComm = self.clock
 			self.communicationEvents.append((self.startComm, self.endComm))
+			self.startComm = 0
 		elif event.type == "end":
 			if self.nodeList[0].communicating:
 				self.endComm = self.clock
