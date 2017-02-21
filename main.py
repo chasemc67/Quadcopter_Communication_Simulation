@@ -46,7 +46,7 @@ def main():
 	#env.printEventQueue()
 
 	output.draw(env.nodeList)
-	while env.clock < duration:
+	while env.clock < duration and env.endEarly == False:
 		
 		nextEvent = env.eventList.get()
 		if env.clock + nextEvent.eventTime > duration:
@@ -72,7 +72,9 @@ def main():
 	resultsLog(str(env.communicationEvents))
 	comms = createCommLengthsFromIntervals(env.communicationEvents)
 	print("Average Encounter time: " + str(getAvgEncounerTime(comms)))
+	print("All averages: " + str(env.averageComms))
 	print("Time spent communicationg: " + str(env.getCommsPercent()) + '%')
+	print("Sim time: " + str(env.clock))
 	plotComms(comms)
 
 

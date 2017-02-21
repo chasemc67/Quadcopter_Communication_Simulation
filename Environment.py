@@ -11,6 +11,8 @@ from helpers import *
 
 from logger import *
 
+from statistics import variance
+
 class Environment():
 	# if debug is true, an event will be placed to draw the board
 	# at each time interval.
@@ -25,6 +27,9 @@ class Environment():
 		self.communicationEvents = list()
 		self.averageComms = list() # tuples of (time, CommPercent)
 		self.startComm = 0
+
+		# flag that gets flipped when sim should end early
+		self.endEarly = False
 
 		for i in range(numNodes):
 			self.nodeList.append(Node(smin, smax, r))
@@ -121,10 +126,26 @@ class Environment():
 			total += (self.clock - self.startComm)
 		return ((total / self.clock) * 100)
 
+	# returns false if < 10 averages in list to calc variance on
+	def isVarianceLessThanThresh(self, threshold):
+		if len(self.averageComms) < 10:
+			return False
+
+		#create list of last 10 averages
+		last10 = list()
+		lenAvgs = len(self.averageComms)
+		for i in range(10):
+			last10.append(self.averageComms[lenAvgs-(i+1)][1])
+
+		if variance(last10) < threshold:
+			return True
+		else:
+			return False
+
 	def handleEvent(self, event):
 		if len(self.averageComms) > 0:
 			if self.clock > ((self.averageComms[len(self.averageComms)-1][0]) + 10):
-				self.averageComms.append((self.clock, self.getCommsPercent))
+				self.averageComms.append((self.clock, self.getCommsPercent()))
 		else:
 			self.averageComms.append((self.clock, self.getCommsPercent()))
 
@@ -152,6 +173,12 @@ class Environment():
 				self.endComm = 0
 		else:
 			print("Cannot handle event of type: " + str(event.type))
+
+		# Check for end early condition
+		# 2 is magic number here for end variance
+		if self.isVarianceLessThanThresh(2):
+			self.endEarly = True
+
 
 	def printEventQueue(self):
 		tq1 = q.PriorityQueue(maxsize=0)
