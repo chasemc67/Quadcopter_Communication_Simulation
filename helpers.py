@@ -1,3 +1,5 @@
+# a collection of helper functions not tied to a specific class
+
 import math
 
 from Node import Node
@@ -5,7 +7,7 @@ from Node import Node
 import matplotlib.pyplot as plt
 import numpy as np
 
-
+# returns the euclidian distance between two points
 # expects each point to be an (x,y) tuple
 def getEquclidianDist(point1, point2):
 	return math.sqrt(math.pow(point1[0] - point2[0], 2) + math.pow(point1[1] - point2[1], 2))
@@ -34,6 +36,9 @@ def predictTimeToEnter(Node1, Node2):
 
 	return (-(dvdr + math.sqrt(d))/dvdv)
 
+# determines what time nodes will leave communication distance
+# does this by copying the nodes, moving them forward in time,
+# and then moving them backward until they intersect
 def predictTimeToExit(Node1, Node2):
 	time = 0
 
@@ -70,6 +75,7 @@ def predictTimeToExit(Node1, Node2):
 	return time - predictTimeToEnter(N1, N2)
 	
 
+# taks a list of intervals and returns a list of communication lengths
 def createCommLengthsFromIntervals(commIntervals):
 	intervals = list()
 	for i in commIntervals:
@@ -77,6 +83,7 @@ def createCommLengthsFromIntervals(commIntervals):
 
 	return intervals
 
+# plots communication values 
 def plotComms(values):
 	plt.hist(values)
 	plt.title("Communication Lengths")
@@ -85,6 +92,7 @@ def plotComms(values):
 
 	plt.show()
 
+# returns the average communication time
 def getAvgEncounerTime(values):
 	total = 0
 	for i in values:

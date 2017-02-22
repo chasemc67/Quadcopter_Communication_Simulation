@@ -32,9 +32,6 @@ class Drawer():
 		if self.enabled == True:
 			self.clear()
 			for y in range(self.height):			
-				#sys.stdout.write('\x1b[6;30;42m %s \x1b[0m' % y)
-				#sys.stdout.write('\x1b[1;31;47m %s \x1b[0m' % y)
-				#sys.stdout.flush()
 				for x in range(self.width):
 					if (self.nodeAtPosition(nodeList, x, y) == 2):
 						sys.stdout.write('\x1b[1;31;47mo \x1b[0m')	

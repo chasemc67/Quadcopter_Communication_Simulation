@@ -15,7 +15,6 @@ import random
 import queue as q
 
 from helpers import *
-from logger import *
 
 
 def main():
@@ -69,11 +68,10 @@ def main():
 	env.handleEvent(Event(1, None, None, "end"))
 
 	
-	resultsLog(str(env.communicationEvents))
 	comms = createCommLengthsFromIntervals(env.communicationEvents)
 	print("Average Encounter time: " + str(getAvgEncounerTime(comms)))
-	print("All averages: " + str(env.averageComms))
-	print("Time spent communicationg: " + str(env.getCommsPercent()) + '%')
+	#print("All averages: " + str(env.averageComms))
+	print("Percent of time spent communicationg: " + str(env.getCommsPercent()) + '%')
 	print("Sim time: " + str(env.clock))
 	plotComms(comms)
 

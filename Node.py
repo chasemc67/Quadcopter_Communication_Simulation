@@ -24,12 +24,15 @@ class Node():
 		# Between args smin and smax
 		return random.randint(smin, smax)
 
+	# get the line segment representing the nodes trajectory
 	def getLineSegmemnt(self):
 		startPoint = (self.x, self.y)
 		endPoint = (self.x + (60*self.dx), self.y + (60*self.dy))
 		return (startPoint, endPoint)
 
 
+	# Bounce off the wall, and set x and y velocity accordingly
+	# So the node will move away from the wall
 	def bounceOffWall(self):
 		self.dx = random.randint(self.smin, self.smax)
 		self.dy = random.randint(self.smin, self.smax)
@@ -44,6 +47,7 @@ class Node():
 		self.dx = self.dx * directionX
 		self.dy = self.dy * directionY		
 
+		# Values are hard coded here corresponding to the environment width
 		if self.x >= 38:
 			self.dx = -abs(self.dx)
 		if self.y >= 38:
@@ -55,6 +59,7 @@ class Node():
 			self.dy = abs(self.dy)
 
 
+	# Find where to lines intersect
 	def lineIntersection(self, line1, line2):
 	    xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
 	    ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
@@ -71,6 +76,7 @@ class Node():
 	    y = det(d, ydiff) / div
 	    return x, y
 
+	# to string function used for debugging
 	def toString(self):
 		return ("\nNode: \nx: " + str(self.x) + "\ny: " + str(self.y) + "\ndx: " + str(self.dx) + "\ndy: " + str(self.dy) + "\nrad: " + str(self.radius) + "\ncomm: " + str(self.communicating) + "\n\n")
 

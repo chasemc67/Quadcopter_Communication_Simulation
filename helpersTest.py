@@ -1,3 +1,5 @@
+# A collections of tests for ther helpers functions
+
 from helpers import *
 
 def test():
