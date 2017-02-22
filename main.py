@@ -72,7 +72,7 @@ def main():
 	print("Average Encounter time: " + str(getAvgEncounerTime(comms)))
 	#print("All averages: " + str(env.averageComms))
 	print("Percent of time spent communicationg: " + str(env.getCommsPercent()) + '%')
-	print("Sim time: " + str(env.clock))
+	print("Total simulation time: " + str(env.clock))
 	plotComms(comms)
 
 
