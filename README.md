@@ -36,3 +36,4 @@ drawingEnabled is a toggle for whether an ascii art simulation is drawn to the t
 ```
 python main.py 0 10 3 104141 100 true
 ```
+ 
