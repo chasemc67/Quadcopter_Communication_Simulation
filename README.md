@@ -8,6 +8,8 @@ For speed an efficiency, the simulation pre-calculates time signatures where eve
 Rather than the alternative of calculating every single simulation frame.  
 This allows the simulations to be incredibly fast.  
 
+![quadsim](https://user-images.githubusercontent.com/6922982/39973101-406b904e-56d0-11e8-83b1-2cbfb326e925.gif)
+
 #### Usage:
 ##### For a single run:
 ```
