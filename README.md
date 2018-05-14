@@ -1,4 +1,4 @@
-### Simulates Communication Frequency and Duration for Nodes Moving in a Space
+### Simulates Communication Frequency and Duration for Nodes Moving in a Bounded Space
 
 This code simulates two nodes, with a given communication radius, moving randomly in an enclosed space.
 batch runs can be invoked, which will generate statistics on commuication duration and frequency, under different parameters.
